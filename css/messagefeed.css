@@ -1,0 +1,118 @@
+.message-feed {
+    flex-grow: 1;
+    padding: 1.25rem;
+    padding-bottom: 5rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.message {
+    display: flex;
+    align-items: flex-start;
+    max-width: 85%;
+}
+
+.message.received { 
+    align-self: flex-start;
+}
+
+.message.sent { 
+    align-self: flex-end; 
+    flex-direction: row-reverse; 
+    text-align: right;
+}
+
+.avatar-small {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background-color: #555;
+    margin: 0 0.625rem;
+    flex-shrink: 0;
+}
+
+.message-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.timestamp {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-bottom: 0.1rem;
+}
+
+.bubble {
+    border-radius: 1.25rem;
+    font-size: 1rem;
+    padding: 0.5rem 0.5rem;
+}
+
+.message.received .bubble {
+    background-color: var(--msg-received);
+    color: var(--text-main);
+    border-top-left-radius: 0.125rem;
+}
+
+.message.sent .bubble {
+    background-color: var(--msg-sent);
+    color: var(--accent-msg-text);
+    border-top-right-radius: 0.125rem;
+}
+
+.input-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.25rem;
+    
+}
+
+.input-pill {
+    background-color: var(--bg-input);
+    border-radius: 3rem;
+    display: flex;
+    align-items: center;
+    padding: 0.3rem 0.5rem;
+    transition: box-shadow 0.2s;
+    gap: 0.25rem;
+}
+
+.input-pill:focus-within {
+    box-shadow: 0 0 0 0.125rem var(--accent);
+}
+
+.input-pill input {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    padding: 0.75rem;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.icon-btn {
+    height:2rem;
+    width:2rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, background 0.2s;
+}
+
+.icon-btn:hover {
+    color: var(--text-main);
+    background-color: rgba(255,255,255,0.1);
+}

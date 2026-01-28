@@ -1,0 +1,45 @@
+.sidebar {
+    background-color: var(--bg-sidebar);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.friend-list {
+    list-style: none;
+    padding: 0 0.5rem;
+    overflow-y: auto;
+}
+
+.friend-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    color: var(--text-main);
+    transition: background 0.1s;
+    gap: 0.5rem;
+}
+
+.friend-item .avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background-color: #555;
+}
+
+.friend-item .info {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-item .status {
+    font-size: 0.75rem;
+}

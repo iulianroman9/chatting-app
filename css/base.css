@@ -1,0 +1,35 @@
+:root {
+    --bg-app: #313338;    
+    --bg-sidebar: #2b2d31;
+    --bg-header: #282a2e; 
+    --bg-input: #383a40;  
+    
+    --text-main: #f2f3f5; 
+    --text-muted: #949ba4;
+    
+    --accent: #a29bfe;
+    --accent-dark: #6c5ce7;
+    --accent-msg-text: #ffffff;
+    
+    --msg-received: #3c3c4f;
+    --msg-sent: var(--accent-dark); 
+    
+    --status-online: #23a559;
+    --status-offline: #80848e;
+    
+    --border-color: #1e1f22;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    overflow: hidden;
+}
