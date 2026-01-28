@@ -1,28 +1,37 @@
-const MESSAGES_KEY = 'yeet_messages';
+const CHATS_KEY = 'yeet_chats';
 
-export function getMessages() {
+export function getAllChats() {
     try {
-        return JSON.parse(localStorage.getItem(MESSAGES_KEY)) || [];
+        return JSON.parse(localStorage.getItem(CHATS_KEY)) || {};
     }
     catch (error) {
-        console.error("Error retrieving messages from local storage:", error);
-        return [];
+        console.error("Error loading chats:", error);
+        return {};
     }
 }
 
-export function saveMessage(text, type = 'sent') {
-    const messages = getMessages();
+export function getMessages(user) {
+    const allChats = getAllChats();
+    return allChats[user] || [];
+}
+
+export function saveMessage(user, text, type = 'sent') {
+    const allChats = getAllChats();
     
+    if (!allChats[user]) {
+        allChats[user] = [];
+    }
+
     const newMessage = {
         text: text,
         type: type,
         timestamp: new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })
     };
 
-    messages.push(newMessage);
+    allChats[user].push(newMessage);
     
     try {
-        localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages));
+        localStorage.setItem(CHATS_KEY, JSON.stringify(allChats));
     }
     catch (error) {
         console.error("Error saving message to local storage:", error);
@@ -43,11 +52,11 @@ export function renderMessage(msg, container) {
 
     const timeStmp = document.createElement('span');
     timeStmp.classList.add('timestamp');
-    timeStmp.textContent = `${msg.timestamp}`;
+    timeStmp.textContent = msg.timestamp;
 
     const bubble = document.createElement('div');
     bubble.classList.add('bubble');
-    bubble.textContent = `${msg.text}`;
+    bubble.textContent = msg.text;
 
     msgContent.append(timeStmp, bubble);
     msgDiv.append(smallAvatar, msgContent);
@@ -56,11 +65,11 @@ export function renderMessage(msg, container) {
     container.scrollTop = container.scrollHeight;
 }
 
-export function renderAllMessages(container) {
-    const messages = getMessages();
+export function renderChatHistory(user, container) {
+    container.innerHTML = '';
+    const messages = getMessages(user);
 
-    if(messages.length > 0) {
-        container.innerHTML = '';
+    if (messages.length > 0) {
         messages.forEach(msg => renderMessage(msg, container));
         container.scrollTop = container.scrollHeight;
     }
