@@ -9,6 +9,17 @@
 <body>
     <div class="app-container">
 
+        <div id="login-modal" class="modal-overlay">
+            <div class="login-box">
+                <h2>welcome</h2>
+                <p>enter your username</p>
+                <form id="login-form">
+                    <input type="text" id="login-username" placeholder="username" autocomplete="off" required>
+                    <button type="submit">Join Chat</button>
+                </form>
+            </div>
+        </div>
+
         <nav class="app-header">
             <div class="logo">
                 <span class="logo-icon">Y</span>
@@ -68,7 +79,7 @@
             <div class="input-container">
                 <form id="message-form" class="input-pill">
                     <button type="button" class="icon-btn" title="Add attachment">+</button>
-                    <input type="text" id="message-input" placeholder="message @hollow" autocomplete="off">
+                    <input type="text" id="message-input" placeholder="your message goes here..." autocomplete="off">
                     <button type="button" class="icon-btn" title="GIF">GIF</button>
                     <button type="button" class="icon-btn" title="Emoji">:3</button>
                     <button type="submit" hidden></button>
