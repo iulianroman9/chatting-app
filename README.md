@@ -7,4 +7,5 @@ flask-sock
 
 ### preview
 
-![preview image](preview.jpeg)
+<img src="preview.jpeg" width="660" alt="Mobile Preview">
+<img src="preview-mobile.png" width="250" alt="Mobile Preview">

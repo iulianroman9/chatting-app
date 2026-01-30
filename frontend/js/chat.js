@@ -53,6 +53,19 @@ export class Chat extends PubSub {
         bubble.classList.add('bubble');
         bubble.textContent = msg.text;
 
+        //embed for yt links
+        if (msg.text.includes('youtube.com')) {
+            const embed = msg.text.replace('watch?v=', 'embed/');   
+            const iframe = document.createElement('iframe');
+            iframe.src = embed;
+            iframe.style.width = "300px";
+            iframe.style.height = "200px";
+            iframe.style.marginTop = "10px";
+            iframe.style.border = "1px solid #1e1f22"; 
+            iframe.style.borderRadius = "8px";
+            bubble.appendChild(iframe);
+        }
+
         msgContent.append(timeStmp, bubble);
         msgDiv.append(smallAvatar, msgContent);
 
