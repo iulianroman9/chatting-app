@@ -1,5 +1,7 @@
+@use 'variables' as *;
+
 .chat-window {
-    background-color: var(--bg-app);
+    background-color: $bg-app;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -23,11 +25,11 @@
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;
-    background-color: var(--status-offline);
+    background-color: $status-offline;
     display: inline-block;
     margin-left: 0.5rem;
 }
 
 .status-dot.online { 
-    background-color: var(--status-online);
+    background-color: $status-online;
 }

@@ -1,5 +1,7 @@
+@use 'variables' as *;
+
 .sidebar {
-    background-color: var(--bg-sidebar);
+    background-color: $bg-sidebar;
     display: flex;
     flex-direction: column;
 }
@@ -7,7 +9,7 @@
 .sidebar-header {
     padding: 1rem;
     font-size: 0.75rem;
-    color: var(--text-muted);
+    color: $text-muted;
     text-align: center;
 }
 
@@ -23,14 +25,14 @@
     padding: 0.5rem;
     border-radius: 1rem;
     cursor: pointer;
-    color: var(--text-main);
+    color: $text-main;
     transition: background 0.1s;
     gap: 0.5rem;
 }
 
 .friend-item.active {
     background-color: rgba(255,255,255, 0.08);
-    color: var(--text-main);
+    color: $text-main;
 }
 
 .friend-item .avatar {
