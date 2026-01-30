@@ -9,11 +9,11 @@ export class PubSub {
         this.#events[event].push(fn);
     }
 
-    unsubscribe(event, fn) {
-        if (this.#events[event]) {
-            this.#events[event] = this.#events[event].filter(func => func !== fn);
-        }
-    }
+    // unsubscribe(event, fn) {
+    //     if (this.#events[event]) {
+    //         this.#events[event] = this.#events[event].filter(func => func !== fn);
+    //     }
+    // }
 
     publish(event, data) {
         if (this.#events[event]) {

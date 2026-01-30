@@ -4,10 +4,10 @@ import { Sidebar } from './sidebar.js';
 
 class App {
     constructor() {
-        this.me = 'null';
-        this.activeChat = 'hollow';
+        this.me = null;
+        this.activeChat = null;
 
-        this.connection = new Connection ('ws://localhost:8080');
+        this.connection = new Connection ('ws://localhost:5000/ws');
         this.chat = new Chat();
         this.sidebar = new Sidebar();
 
@@ -47,14 +47,21 @@ class App {
     }
 
     setup() {
+        //when we click on another chat, set the active chat to the new user, re render chat, and fetch the mesasge history between those 2 users
         this.sidebar.subscribe('sidebar-select', (newTarget) => {
             this.chat.clear();
             this.activeChat = newTarget;
             this.chat.updateHeader(newTarget);
+
+            this.connection.send({
+                type: 'fetch-history',
+                target: newTarget
+            });
         });
 
+        //send message on the socket when we press enter on the msg input field
         this.chat.subscribe('chat-send', (text) => {
-            if (!this.me) {
+            if (!this.me || !this.activeChat) {
                 return;
             }
 
@@ -68,7 +75,40 @@ class App {
             this.connection.send(message);
         });
 
+        //when we receive a message on the socket do something based on msg type
         this.connection.subscribe('connection-receive', (msg) => {
+            if (msg.type === 'user-list') {
+                this.sidebar.render(msg.users, this.me);
+                
+                if (!this.activeChat && msg.users.length > 0) {
+                    const firstContact = msg.users.find(u => u !== this.me);
+                    if (firstContact) {
+                        this.activeChat = firstContact;
+                        this.chat.updateHeader(firstContact);
+                        this.connection.send({
+                            type: 'fetch-history',
+                            target: firstContact
+                        });
+                    }
+                }
+
+                if (this.activeChat) {
+                    this.sidebar.setActive(this.activeChat);
+                }
+                
+                return;
+            }
+
+            if (msg.type === 'history-data') {
+                if (msg.target === this.activeChat) {
+                    msg.messages.forEach(message => {
+                        const type = message.sender === this.me ? 'sent' : 'received';
+                        this.chat.renderMessage(message, type);
+                    });
+                }
+                return;
+            }
+
             if (msg.sender === this.me) {
                 if (msg.target === this.activeChat) {
                     this.chat.renderMessage(msg, 'sent');
@@ -78,9 +118,6 @@ class App {
                 if (msg.sender === this.activeChat) {
                     this.chat.renderMessage(msg, 'received');
                 }
-                // else {
-                //     console.log(`message: ${msg.sender} was ignored.`);
-                // }
             }
         });
     }
